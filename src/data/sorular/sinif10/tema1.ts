@@ -862,7 +862,7 @@ c) İlk ve son nokta arasındaki ortalama hızı kaç m/s'dir?`,
 
 Aşağıdaki hareketlerden hangisinde cismin ivmesi sıfırdır?`,
     secenekler: {
-      A: 'Düz yolda sabit $60\ \text{km/h}$ ile giden otomobil',
+      A: r`Düz yolda sabit $60\ \text{km/h}$ ile giden otomobil`,
       B: 'Kırmızı ışıkta yavaşlayarak duran şehir otobüsü',
       C: 'Yeşil ışık yanınca kalkışa geçen motosiklet',
       D: 'Dairesel pistte sabit süratle dönen yarış arabası',

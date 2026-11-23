@@ -37,13 +37,17 @@ Kutlama mektubunu `kutlamaMektubu: \`...\`` ters tırnakları arasına yapışt�
 - **Yaprak test:** Alt bardaki *Teste Ekle* → üst bardaki liste ikonu → *Yazdır / PDF Kaydet* (2 sütun, isteğe bağlı cevap anahtarı). Liste boşsa ekrandaki soru basılır.
 - **Kurulum (PWA):** Tarayıcı destekliyorsa üst barda ⬇ ikonu çıkar; kurulduktan sonra internet olmadan da açılır.
 
-## Soru ekleme
+## Soru bankası ve kalite denetimi
 
-`src/data/sorular/sinif9.ts … sinif12.ts` dosyalarına `Soru` şemasına (`src/data/tipler.ts`) uygun nesne ekle.
-`metin`, `secenekler`, `adimAdimCozum` alanlarında `$...$` (satır içi) ve `$$...$$` (blok) KaTeX, `**kalın**` kullanılabilir.
-SVG çizimlerinde renkler temaya uysun diye sınıflar kullan: `c-v` / `f-v` (vurgu), `c-i` / `f-i` (ikincil), `f-k` / `f-kv` (yarı saydam kutu), `f-s` (sıvı/alan), `t` (yazı), `k` (kesikli).
+600 soruluk soru bankası (her sınıfta 120 çoktan seçmeli + 30 açık uçlu senaryo, toplam 367 tema uyumlu SVG çizim) `src/data/sorular/sinif9/ … sinif12/` altındaki tema dosyalarında yer alır ve sınıf bazlı dinamik parçalar (chunk) hâlinde yüklenir.
 
-> ⚠️ Örnek sorulardaki **tema adları, öğrenme çıktısı kodları ve süreç bileşenleri temsilidir.** MEB kitap özetlerini çıkardıktan sonra resmî kodlarla güncelleyin.
+Yeni soru eklerken `scripts/SORU_YAZIM_REHBERI.md` kurallarına ve `src/data/tipler.ts` şemasına uyulmalıdır. `metin`, `secenekler`, `adimAdimCozum` alanlarında `$...$` (satır içi) ve `$$...$$` (blok) KaTeX, `**kalın**` kullanılabilir. SVG çizimlerinde renkler temaya uysun diye sınıflar kullanılır: `c-v` / `f-v` (vurgu), `c-i` / `f-i` (ikincil), `f-k` / `f-kv` (yarı saydam kutu), `f-s` (sıvı/alan), `t` (yazı), `k` (kesikli).
+
+Tüm soru bankasını (adet, A–E dağılımı, klon testi, sayısal `hesap` doğrulaması, KaTeX ve SVG kadraj kontrolü) denetlemek için:
+
+```powershell
+python scripts/soru_denetle.py
+```
 
 ## MEB kitaplarından özet çıkarma
 

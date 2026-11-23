@@ -235,6 +235,8 @@ def soru_denetle(s: dict, mufredat: dict) -> str | None:
     alanlar += [(f"adım{i + 1}", a) for i, a in enumerate(s["adimAdimCozum"])]
     alanlar += [(f"şık {h}", v) for h, v in (s.get("secenekler") or {}).items()]
     for alan, metin in alanlar:
+        if any(ord(ch) < 32 and ch not in "\n\r" for ch in str(metin)):
+            hata(sid, f"{alan}: kontrol/kaçış karakteri var (normal tırnak yerine r`...` kullanın)")
         if not parantez_dengesi(str(metin)):
             hata(sid, f"{alan}: eşleşmeyen {{ }}")
     if s.get("svgDiyagram"):
