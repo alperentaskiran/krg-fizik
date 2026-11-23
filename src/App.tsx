@@ -1,6 +1,7 @@
 import {
   AArrowDown,
   AArrowUp,
+  BookOpen,
   ChevronLeft,
   ChevronRight,
   Download,
@@ -25,20 +26,21 @@ import { ARAC_RENK, CizimKatmani, type Arac, type CizimKontrol } from './compone
 import { KalpDugmesi } from './components/KalpDugmesi'
 import { KarsilamaKarti } from './components/KarsilamaKarti'
 import { QrPenceresi } from './components/QrPenceresi'
+import { SoruBankasi } from './components/SoruBankasi'
 import { SoruKarti } from './components/SoruKarti'
 import { TestPaneli } from './components/TestPaneli'
 import { YazdirmaGorunumu } from './components/YazdirmaGorunumu'
-import { ozelAyarlar } from './config/ozelAyarlar'
 import { mufredat } from './data/mufredat'
-import { siniflar, soruBul, tumSorular } from './data/sorular'
-import type { SecenekHarfi, Sinif } from './data/tipler'
-import { depoOku, useKalici } from './lib/depo'
+import { idSinif, siniflar, sinifYukle } from './data/sorular'
+import type { SecenekHarfi, Sinif, Soru } from './data/tipler'
+import { depoOku, depoYaz, useKalici } from './lib/depo'
 
 type Tema = 'koyu' | 'yesil' | 'beyaz'
+type Filtre = Sinif | 'hepsi'
 const TEMALAR: { id: Tema; ad: string; renk: string }[] = [
-  { id: 'koyu', ad: 'Koyu Tahta', renk: '#0b1220' },
-  { id: 'yesil', ad: 'Klasik Yeşil Tahta', renk: '#163428' },
-  { id: 'beyaz', ad: 'Beyaz Kağıt', renk: '#f4f2ec' },
+  { id: 'koyu', ad: 'KRG Gece Tahtası', renk: '#071426' },
+  { id: 'yesil', ad: 'Klasik Yeşil Tahta', renk: '#123326' },
+  { id: 'beyaz', ad: 'Beyaz Kağıt', renk: '#f5f3ee' },
 ]
 
 interface KurulumOlayi extends Event {
@@ -56,6 +58,7 @@ function hashOku() {
 
 const ilkHash = hashOku()
 const ilkSinifModu = depoOku('sinifModu', false)
+const ilkFiltre: Filtre = idSinif(ilkHash.id) ?? depoOku<Filtre>('filtre', 9)
 
 export default function App() {
   // ── Kalıcı tercihler ──
@@ -67,19 +70,56 @@ export default function App() {
   const ogrenci = useRef(ilkHash.ogrenci).current
   const gizli = sinifModu || ogrenci
 
-  // ── Gezinme ──
-  const [filtre, setFiltre] = useState<Sinif | 'hepsi'>('hepsi')
+  // ── Sınıf bazlı dinamik yükleme ──
+  const [yuklu, setYuklu] = useState<Partial<Record<Sinif, Soru[]>>>({})
+  const [filtre, setFiltre] = useState<Filtre>(ilkFiltre)
   const [temaFiltre, setTemaFiltre] = useState<string | null>(null)
-  const [aktifId, setAktifId] = useState(() => (ilkHash.id && soruBul(ilkHash.id) ? ilkHash.id : tumSorular[0].id))
-  const liste = useMemo(
-    () =>
-      tumSorular.filter(
-        (s) => (filtre === 'hepsi' || s.sinif === filtre) && (filtre === 'hepsi' || !temaFiltre || s.tema === temaFiltre),
-      ),
-    [filtre, temaFiltre],
+  const [aktifId, setAktifId] = useState<string | null>(ilkHash.id ?? null)
+
+  const gerekliSiniflar = useMemo(() => {
+    const k = new Set<Sinif>(filtre === 'hepsi' ? siniflar : [filtre])
+    for (const id of [aktifId, ...testListesi]) {
+      const s = idSinif(id)
+      if (s) k.add(s)
+    }
+    return [...k]
+  }, [filtre, aktifId, testListesi])
+
+  useEffect(() => {
+    for (const s of gerekliSiniflar) {
+      if (yuklu[s]) continue
+      sinifYukle(s).then((l) => setYuklu((y) => (y[s] ? y : { ...y, [s]: l })))
+    }
+  }, [gerekliSiniflar, yuklu])
+
+  useEffect(() => depoYaz('filtre', filtre), [filtre])
+
+  const soruBul = useCallback(
+    (id: string) => {
+      const s = idSinif(id)
+      return s ? yuklu[s]?.find((q) => q.id === id) : undefined
+    },
+    [yuklu],
   )
+
+  const liste = useMemo(() => {
+    const kaynak = filtre === 'hepsi' ? siniflar.flatMap((s) => yuklu[s] ?? []) : (yuklu[filtre] ?? [])
+    return filtre === 'hepsi' || !temaFiltre ? kaynak : kaynak.filter((s) => s.tema === temaFiltre)
+  }, [yuklu, filtre, temaFiltre])
+  const yukleniyor = filtre === 'hepsi' ? siniflar.some((s) => !yuklu[s]) : !yuklu[filtre]
+
+  // Etkin soru listede yoksa (filtre değişti / ilk açılış) listenin ilk sorusuna geç
+  useEffect(() => {
+    if (!liste.length) return
+    if (!aktifId || !liste.some((s) => s.id === aktifId)) {
+      const hedefSinif = idSinif(aktifId)
+      const bekleniyor = aktifId && hedefSinif && !yuklu[hedefSinif]
+      if (!bekleniyor) setAktifId(liste[0].id)
+    }
+  }, [liste, aktifId, yuklu])
+
   const sira = Math.max(0, liste.findIndex((s) => s.id === aktifId))
-  const soru = liste[sira] ?? tumSorular[0]
+  const soru: Soru | undefined = liste.find((s) => s.id === aktifId)
 
   const [acikAdim, setAcikAdim] = useState(0)
   const [secilen, setSecilen] = useState<SecenekHarfi | null>(null)
@@ -88,6 +128,7 @@ export default function App() {
   const [mektupAcik, setMektupAcik] = useState(() => !ilkSinifModu && !ilkHash.ogrenci)
   const [qrAcik, setQrAcik] = useState(false)
   const [testAcik, setTestAcik] = useState(false)
+  const [bankaAcik, setBankaAcik] = useState(false)
 
   // ── Çizim ──
   const [kalem, setKalem] = useState(false)
@@ -106,10 +147,27 @@ export default function App() {
     kaydirma.current?.scrollTo({ top: 0, behavior: 'smooth' })
   }, [])
 
-  const ileri = useCallback(() => git(liste[(sira + 1) % liste.length].id), [git, liste, sira])
-  const geri = useCallback(() => git(liste[(sira - 1 + liste.length) % liste.length].id), [git, liste, sira])
+  /** Herhangi bir sınıftaki soruya git: gerekirse filtreyi o sınıfa çevirir */
+  const soruyaGit = useCallback(
+    (id: string) => {
+      const s = idSinif(id)
+      if (s && filtre !== 'hepsi' && filtre !== s) {
+        setFiltre(s)
+        setTemaFiltre(null)
+      }
+      git(id)
+    },
+    [filtre, git],
+  )
 
-  const adimToplam = soru.adimAdimCozum.length
+  const ileri = useCallback(() => {
+    if (liste.length) git(liste[(sira + 1) % liste.length].id)
+  }, [git, liste, sira])
+  const geri = useCallback(() => {
+    if (liste.length) git(liste[(sira - 1 + liste.length) % liste.length].id)
+  }, [git, liste, sira])
+
+  const adimToplam = soru?.adimAdimCozum.length ?? 0
   const adimIleri = useCallback(() => setAcikAdim((a) => (a >= adimToplam ? 0 : a + 1)), [adimToplam])
   const adimGeri = useCallback(() => setAcikAdim((a) => Math.max(0, a - 1)), [])
 
@@ -132,14 +190,16 @@ export default function App() {
     [setTema],
   )
 
-  const testteMi = testListesi.includes(soru.id)
-  const testDegistir = () =>
-    setTestListesi((l) => (l.includes(soru.id) ? l.filter((x) => x !== soru.id) : [...l, soru.id]))
-
-  const yazdirilacak = useMemo(() => {
-    const l = testListesi.map(soruBul).filter((s) => s !== undefined)
-    return l.length ? l : [soru]
-  }, [testListesi, soru])
+  const testDegistir = useCallback(
+    (id: string) => setTestListesi((l) => (l.includes(id) ? l.filter((x) => x !== id) : [...l, id])),
+    [setTestListesi],
+  )
+  const testteMi = !!soru && testListesi.includes(soru.id)
+  const testSorulari = useMemo(
+    () => testListesi.map(soruBul).filter((s): s is Soru => s !== undefined),
+    [testListesi, soruBul],
+  )
+  const yazdirilacak = testSorulari.length ? testSorulari : soru ? [soru] : []
 
   const yazdir = () => {
     setTestAcik(false)
@@ -153,21 +213,18 @@ export default function App() {
   }, [tema])
   useEffect(() => document.documentElement.style.setProperty('--olcek', String(olcek)), [olcek])
   useEffect(() => {
+    if (!soru) return
     const hedef = `#/soru/${soru.id}${ogrenci ? '?o=1' : ''}`
     if (location.hash !== hedef) history.replaceState(null, '', hedef)
-  }, [soru.id, ogrenci])
+  }, [soru, ogrenci])
   useEffect(() => {
     const dinle = () => {
       const { id } = hashOku()
-      if (id && id !== aktifId && soruBul(id)) {
-        setFiltre('hepsi')
-        setTemaFiltre(null)
-        git(id)
-      }
+      if (id && id !== aktifId && idSinif(id)) soruyaGit(id)
     }
     window.addEventListener('hashchange', dinle)
     return () => window.removeEventListener('hashchange', dinle)
-  }, [aktifId, git])
+  }, [aktifId, soruyaGit])
   useEffect(() => {
     if (sinifModu) setMektupAcik(false)
   }, [sinifModu])
@@ -191,7 +248,7 @@ export default function App() {
   }, [])
 
   // ── TV kumandası / klavye ──
-  const pencereAcik = mektupAcik || qrAcik || testAcik
+  const pencereAcik = mektupAcik || qrAcik || testAcik || bankaAcik
   const tusRef = useRef<(e: KeyboardEvent) => void>(() => {})
   tusRef.current = (e: KeyboardEvent) => {
     if (e.ctrlKey || e.metaKey || e.altKey) return
@@ -202,6 +259,7 @@ export default function App() {
         setMektupAcik(false)
         setQrAcik(false)
         setTestAcik(false)
+        setBankaAcik(false)
       }
       return
     }
@@ -216,9 +274,10 @@ export default function App() {
     else if (k === '-' || k === '_') puntoDegistir(-0.1)
     else if (k === 't' || k === 'T') temaDegistir()
     else if (k === 'k' || k === 'K') setKalem((x) => !x)
-    else if (k === 'q' || k === 'Q') setQrAcik(true)
+    else if ((k === 'q' || k === 'Q') && soru) setQrAcik(true)
+    else if (k === 'b' || k === 'B') setBankaAcik(true)
     else if (k === 'Escape') setKalem(false)
-    else if (soru.secenekler && /^[a-eA-E]$/.test(k)) setSecilen(k.toUpperCase() as SecenekHarfi)
+    else if (soru?.secenekler && /^[a-eA-E]$/.test(k)) setSecilen(k.toUpperCase() as SecenekHarfi)
     else islendi = false
     if (islendi) e.preventDefault()
   }
@@ -229,24 +288,31 @@ export default function App() {
   }, [])
 
   const temaAdi = TEMALAR.find((t) => t.id === tema)!.ad
+  const ilerleme = liste.length ? ((sira + 1) / liste.length) * 100 : 0
 
   return (
     <>
       <div className="ekran flex h-full flex-col">
         {/* ─────────── Üst bar ─────────── */}
-        <header className="z-20 flex flex-wrap items-center gap-x-3 gap-y-2 border-b border-cizgi bg-yuzey/95 px-3 py-2 backdrop-blur sm:px-5">
+        <header className="z-20 flex flex-wrap items-center gap-x-3 gap-y-2 border-b border-cizgi bg-yuzey/90 px-3 py-2 backdrop-blur sm:px-5">
           <div className="flex min-w-0 items-center gap-2.5">
-            <img src="./logo.webp" alt="KRG Fizik logosu" className="size-10 rounded-xl" />
+            <img
+              src="./logo-badge.png"
+              alt="KRG Fizik amblemi"
+              className="size-11 shrink-0 rounded-full shadow-[0_0_14px_rgba(226,180,85,0.35)]"
+            />
             <div className="min-w-0 leading-tight">
-              <h1 className="truncate text-lg font-extrabold tracking-tight">
-                {ozelAyarlar.markaAdi}
-                <span className="ml-1.5 text-xs font-semibold text-vurgu">{ozelAyarlar.uygulamaAdi}</span>
+              <h1 className="truncate font-serif text-xl font-extrabold tracking-wide">
+                <span className="text-vurgu">KRG</span> <span className="text-ikincil">FİZİK</span>
               </h1>
-              <p className="hidden truncate text-xs text-soluk md:block">{ozelAyarlar.altBaslik}</p>
+              <p className="hidden truncate text-[0.7rem] tracking-wide text-soluk md:block">Akıllı Tahta &amp; Soru Bankası</p>
             </div>
           </div>
 
-          <nav className="order-last flex w-full gap-1.5 overflow-x-auto [scrollbar-width:none] xl:order-none xl:w-auto xl:flex-1 xl:justify-center" aria-label="Sınıf filtresi">
+          <nav
+            className="order-last flex w-full gap-1.5 overflow-x-auto [scrollbar-width:none] xl:order-none xl:w-auto xl:flex-1 xl:justify-center"
+            aria-label="Sınıf filtresi"
+          >
             {(['hepsi', ...siniflar] as const).map((s) => (
               <button
                 key={s}
@@ -254,11 +320,9 @@ export default function App() {
                 onClick={() => {
                   setFiltre(s)
                   setTemaFiltre(null)
-                  const ilk = s === 'hepsi' ? tumSorular[0] : tumSorular.find((q) => q.sinif === s)
-                  if (ilk && !(s === 'hepsi' || soru.sinif === s)) git(ilk.id)
                 }}
                 className={`shrink-0 rounded-full px-4 py-1.5 text-sm font-semibold transition ${
-                  filtre === s ? 'bg-vurgu text-zemin' : 'bg-yuzey2 text-soluk hover:text-metin'
+                  filtre === s ? 'bg-vurgu text-vurgu-yazi' : 'bg-yuzey2 text-soluk hover:text-metin'
                 }`}
               >
                 {s === 'hepsi' ? 'Tümü' : `${s}. Sınıf`}
@@ -277,7 +341,10 @@ export default function App() {
             <BarDugme etiket={`Tahta teması: ${temaAdi} (T)`} onClick={temaDegistir}>
               <Palette />
             </BarDugme>
-            <BarDugme etiket="Soruyu telefonda aç — QR (Q)" onClick={() => setQrAcik(true)}>
+            <BarDugme etiket="Soru bankası (B)" onClick={() => setBankaAcik(true)}>
+              <BookOpen />
+            </BarDugme>
+            <BarDugme etiket="Soruyu telefonda aç — QR (Q)" onClick={() => soru && setQrAcik(true)}>
               <QrCode />
             </BarDugme>
             <BarDugme etiket="Yaprak test / yazdır" onClick={() => setTestAcik(true)} rozet={testListesi.length || undefined}>
@@ -315,21 +382,22 @@ export default function App() {
           </div>
         </header>
 
+        {/* İlerleme çubuğu */}
+        <div className="h-1 w-full bg-yuzey2" aria-hidden>
+          <div className="h-full bg-ikincil transition-[width] duration-300" style={{ width: `${ilerleme}%` }} />
+        </div>
+
         {/* ─────────── Tema / ünite filtresi ─────────── */}
         {filtre !== 'hepsi' && (
           <nav
-            className="z-10 flex gap-1.5 overflow-x-auto border-b border-cizgi bg-yuzey/80 px-3 py-1.5 [scrollbar-width:none] sm:px-5"
+            className="z-10 flex gap-1.5 overflow-x-auto border-b border-cizgi2 bg-yuzey/70 px-3 py-1.5 [scrollbar-width:none] sm:px-5"
             aria-label="Tema filtresi"
           >
             {[null, ...mufredat[filtre].temalar.map((t) => t.ad)].map((ad) => (
               <button
                 key={ad ?? 'tum'}
                 type="button"
-                onClick={() => {
-                  setTemaFiltre(ad)
-                  const ilk = tumSorular.find((q) => q.sinif === filtre && (!ad || q.tema === ad))
-                  if (ilk && ad && soru.tema !== ad) git(ilk.id)
-                }}
+                onClick={() => setTemaFiltre(ad)}
                 className={`shrink-0 rounded-full border px-3 py-1 text-xs font-semibold transition ${
                   temaFiltre === ad ? 'border-ikincil bg-ikincil/15 text-ikincil' : 'border-cizgi text-soluk hover:text-metin'
                 }`}
@@ -343,15 +411,24 @@ export default function App() {
         {/* ─────────── Soru + çizim katmanı ─────────── */}
         <main ref={kaydirma} className="relative flex-1 overflow-y-auto">
           <div className="mx-auto max-w-[120rem] pb-40">
-            <div className="relative">
-              <SoruKarti
-                soru={soru}
-                acikAdim={acikAdim}
-                secilen={secilen}
-                onSec={(h) => setSecilen((s) => (s === h ? null : h))}
-              />
-              <CizimKatmani ref={cizim} aktif={kalem} arac={arac} sayfa={soru.id} />
-            </div>
+            {soru ? (
+              <div className="relative">
+                <SoruKarti
+                  soru={soru}
+                  acikAdim={acikAdim}
+                  secilen={secilen}
+                  onSec={(h) => setSecilen((s) => (s === h ? null : h))}
+                />
+                <CizimKatmani ref={cizim} aktif={kalem} arac={arac} sayfa={soru.id} />
+              </div>
+            ) : (
+              <div className="grid min-h-[50vh] place-items-center text-soluk">
+                <div className="flex items-center gap-3">
+                  <img src="./logo-badge.png" alt="" className="size-10 animate-pulse rounded-full" />
+                  {yukleniyor ? 'Sorular yükleniyor…' : 'Bu filtrede soru bulunamadı.'}
+                </div>
+              </div>
+            )}
           </div>
         </main>
 
@@ -361,10 +438,15 @@ export default function App() {
             <DockDugme etiket="Önceki soru (←)" onClick={geri}>
               <ChevronLeft />
             </DockDugme>
-            <span className="min-w-14 text-center text-sm font-bold tabular-nums">
-              {sira + 1}
+            <button
+              type="button"
+              onClick={() => setBankaAcik(true)}
+              title="Soru bankasını aç (B)"
+              className="min-w-14 rounded-lg px-1 text-center text-sm font-bold tabular-nums hover:bg-yuzey2"
+            >
+              {liste.length ? sira + 1 : 0}
               <span className="text-soluk"> / {liste.length}</span>
-            </span>
+            </button>
             <DockDugme etiket="Sonraki soru (→)" onClick={ileri}>
               <ChevronRight />
             </DockDugme>
@@ -377,7 +459,12 @@ export default function App() {
             {kalem && (
               <>
                 {(['kirmizi', 'mavi', 'yesil'] as const).map((a) => (
-                  <DockDugme key={a} etiket={`${a === 'kirmizi' ? 'Kırmızı' : a === 'mavi' ? 'Mavi' : 'Yeşil'} kalem`} onClick={() => setArac(a)} aktif={arac === a}>
+                  <DockDugme
+                    key={a}
+                    etiket={`${a === 'kirmizi' ? 'Kırmızı' : a === 'mavi' ? 'Mavi' : 'Yeşil'} kalem`}
+                    onClick={() => setArac(a)}
+                    aktif={arac === a}
+                  >
                     <span className="size-6 rounded-full border-2 border-white/70 lg:size-7" style={{ background: ARAC_RENK[a] }} />
                   </DockDugme>
                 ))}
@@ -401,12 +488,13 @@ export default function App() {
             <button
               type="button"
               onClick={adimIleri}
+              disabled={!soru}
               title="Çözümü adım adım aç / kapat (Enter · Boşluk)"
               className={`flex h-11 items-center gap-2 rounded-xl px-3 font-semibold transition lg:h-14 lg:px-4 lg:text-lg ${
-                acikAdim ? 'bg-vurgu text-zemin' : 'bg-yuzey2 hover:bg-cizgi'
+                acikAdim ? 'bg-vurgu text-vurgu-yazi hover:bg-vurgu-hover' : 'bg-yuzey2 hover:bg-cizgi'
               }`}
             >
-              {acikAdim >= adimToplam ? <RotateCcw className="size-5" /> : <Lightbulb className="size-5" />}
+              {acikAdim >= adimToplam && adimToplam ? <RotateCcw className="size-5" /> : <Lightbulb className="size-5" />}
               <span className="hidden sm:inline">
                 {acikAdim === 0 ? 'Çözüm' : acikAdim >= adimToplam ? 'Gizle' : 'Sonraki adım'}
               </span>
@@ -416,7 +504,8 @@ export default function App() {
             </button>
             <button
               type="button"
-              onClick={testDegistir}
+              onClick={() => soru && testDegistir(soru.id)}
+              disabled={!soru}
               title={testteMi ? 'Testten çıkar' : 'Bu soruyu yaprak teste ekle'}
               className={`flex h-11 items-center gap-2 rounded-xl px-3 font-semibold transition lg:h-14 lg:px-4 lg:text-lg ${
                 testteMi ? 'bg-dogru/20 text-dogru' : 'bg-yuzey2 hover:bg-cizgi'
@@ -439,18 +528,30 @@ export default function App() {
             }}
           />
         )}
-        {qrAcik && <QrPenceresi soru={soru} onKapat={() => setQrAcik(false)} />}
+        {qrAcik && soru && <QrPenceresi soru={soru} onKapat={() => setQrAcik(false)} />}
+        {bankaAcik && (
+          <SoruBankasi
+            baslik={`Soru Bankası · ${filtre === 'hepsi' ? 'Tüm sınıflar' : `${filtre}. Sınıf`}${temaFiltre ? ` · ${temaFiltre}` : ''}`}
+            sorular={liste}
+            aktifId={aktifId}
+            testListesi={testListesi}
+            onGit={(id) => {
+              git(id)
+              setBankaAcik(false)
+            }}
+            onTestDegistir={testDegistir}
+            onKapat={() => setBankaAcik(false)}
+          />
+        )}
         {testAcik && (
           <TestPaneli
-            sorular={testListesi.map(soruBul).filter((s) => s !== undefined)}
+            sorular={testSorulari}
             cevapAnahtari={cevapAnahtari}
             setCevapAnahtari={setCevapAnahtari}
             onCikar={(id) => setTestListesi((l) => l.filter((x) => x !== id))}
             onTemizle={() => setTestListesi([])}
             onGit={(id) => {
-              setFiltre('hepsi')
-              setTemaFiltre(null)
-              git(id)
+              soruyaGit(id)
               setTestAcik(false)
             }}
             onYazdir={yazdir}
@@ -471,13 +572,13 @@ function BarDugme(p: { etiket: string; onClick: () => void; children: ReactNode;
       onClick={p.onClick}
       title={p.etiket}
       aria-label={p.etiket}
-      className={`relative size-10 place-items-center rounded-full text-soluk transition hover:bg-yuzey2 hover:text-metin [&_svg]:size-5 ${
+      className={`relative size-10 place-items-center rounded-full text-soluk transition hover:bg-yuzey2 hover:text-vurgu [&_svg]:size-5 ${
         p.gizliMobil ? 'hidden sm:grid' : 'grid'
       }`}
     >
       {p.children}
       {p.rozet !== undefined && (
-        <span className="absolute -top-0.5 -right-0.5 grid min-w-5 place-items-center rounded-full bg-vurgu px-1 text-[0.65rem] font-bold text-zemin">
+        <span className="absolute -top-0.5 -right-0.5 grid min-w-5 place-items-center rounded-full bg-vurgu px-1 text-[0.65rem] font-bold text-vurgu-yazi">
           {p.rozet}
         </span>
       )}

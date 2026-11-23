@@ -42,7 +42,7 @@ export function KarsilamaKarti({ onKapat, onSinifModu }: Props) {
         ))}
       </div>
 
-      <div className="belir relative w-full max-w-2xl rounded-[1.75rem] bg-gradient-to-br from-amber-300 via-rose-400 to-sky-400 p-[2px] shadow-2xl">
+      <div className="belir relative w-full max-w-2xl rounded-[1.75rem] bg-gradient-to-br from-[#f3cc74] via-[#e2b455] to-[#38d9e8] p-[2px] shadow-2xl">
         <div className="relative rounded-[calc(1.75rem-2px)] bg-yuzey px-6 py-7 sm:px-10 sm:py-9">
           <button
             type="button"
@@ -53,12 +53,16 @@ export function KarsilamaKarti({ onKapat, onSinifModu }: Props) {
             <X className="size-5" />
           </button>
 
-          <div className="mb-4 flex items-center gap-3">
-            <img src="./logo.webp" alt="KRG Fizik logosu" className="size-14 rounded-2xl shadow-lg" />
-            <div>
-              <p className="text-xs font-semibold tracking-[0.2em] text-vurgu uppercase">{ozelAyarlar.kutlamaBasligi}</p>
-              <p className="text-sm text-soluk">{ozelAyarlar.markaAdi}</p>
+          <div className="mb-5 flex flex-col items-center text-center">
+            <div className="relative mb-3">
+              <div className="absolute inset-0 -m-3 rounded-full bg-[radial-gradient(circle,rgba(226,180,85,0.45)_0%,rgba(226,180,85,0.12)_45%,transparent_70%)] blur-md" aria-hidden />
+              <img
+                src="./logo-full.png"
+                alt="KRG Fizik logosu"
+                className="relative size-28 rounded-3xl shadow-[0_0_0_1px_rgba(226,180,85,0.5),0_0_28px_rgba(226,180,85,0.35)] sm:size-32"
+              />
             </div>
+            <p className="text-xs font-semibold tracking-[0.25em] text-vurgu uppercase">{ozelAyarlar.kutlamaBasligi}</p>
           </div>
 
           <h2 id="kutlama-baslik" className="font-serif text-2xl leading-tight font-bold sm:text-3xl">
@@ -87,7 +91,7 @@ export function KarsilamaKarti({ onKapat, onSinifModu }: Props) {
               ref={birincilRef}
               type="button"
               onClick={onSinifModu}
-              className="flex items-center justify-center gap-2 rounded-xl bg-vurgu px-5 py-3 font-bold text-zemin shadow-lg hover:brightness-110"
+              className="flex items-center justify-center gap-2 rounded-xl bg-vurgu px-5 py-3 font-bold text-vurgu-yazi shadow-lg hover:bg-vurgu-hover"
             >
               <Presentation className="size-5" /> Tahta / Sınıf Moduna Geç
             </button>

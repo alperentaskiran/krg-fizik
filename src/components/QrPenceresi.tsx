@@ -28,6 +28,15 @@ export function QrPenceresi({ soru, onKapat }: Props) {
 
   return (
     <Pencere baslik={`Soruyu telefonda aç · ${soru.sinif}. Sınıf`} ikon={<QrCode className="size-6" />} onKapat={onKapat}>
+      <div className="mb-4 flex items-center justify-center gap-3">
+        <img src="./logo-badge.png" alt="KRG Fizik amblemi" className="size-12 rounded-full shadow-[0_0_14px_rgba(226,180,85,0.35)]" />
+        <div className="leading-tight">
+          <p className="font-serif text-xl font-extrabold tracking-wide">
+            <span className="text-vurgu">KRG</span> <span className="text-ikincil">FİZİK</span>
+          </p>
+          <p className="text-xs text-soluk">Soru {soru.id} · {soru.ogrenmeCiktisi}</p>
+        </div>
+      </div>
       <div className="mx-auto w-full max-w-[22rem] rounded-2xl bg-white p-4">
         <QRCodeSVG value={adres} size={512} level="M" marginSize={1} className="h-auto w-full" title="Soru bağlantısı" />
       </div>

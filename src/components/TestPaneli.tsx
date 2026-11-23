@@ -70,7 +70,7 @@ export function TestPaneli(p: Props) {
         <button
           type="button"
           onClick={p.onYazdir}
-          className="flex items-center justify-center gap-2 rounded-xl bg-vurgu px-5 py-2.5 font-bold text-zemin hover:brightness-110"
+          className="flex items-center justify-center gap-2 rounded-xl bg-vurgu px-5 py-2.5 font-bold text-vurgu-yazi hover:bg-vurgu-hover"
         >
           <Printer className="size-5" /> Yazdır / PDF Kaydet
         </button>

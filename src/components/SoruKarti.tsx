@@ -28,9 +28,9 @@ export function SoruKarti({ soru, acikAdim, secilen, onSec }: Props) {
     <article className="soru-punto px-4 py-5 sm:px-8 sm:py-7 lg:px-12">
       {/* Künye */}
       <div className="mb-4 flex flex-wrap items-center gap-2 text-[0.62em] font-medium">
-        <span className="rounded-full bg-vurgu px-3 py-0.5 font-bold text-zemin">{soru.sinif}. Sınıf</span>
+        <span className="rounded-full bg-vurgu px-3 py-0.5 font-bold text-vurgu-yazi">{soru.sinif}. Sınıf</span>
         <span className="rounded-full border border-cizgi px-3 py-0.5">{soru.tema}</span>
-        <span className="rounded-full border border-cizgi px-3 py-0.5 font-mono tracking-tight" title={ciktiAdi}>
+        <span className="rounded-full border border-cizgi2 bg-ikincil/10 px-3 py-0.5 font-mono tracking-tight text-ikincil" title={ciktiAdi}>
           {soru.ogrenmeCiktisi}
           {ciktiAdi && <span className="ml-1.5 font-sans text-soluk">· {ciktiAdi}</span>}
         </span>
@@ -91,8 +91,8 @@ export function SoruKarti({ soru, acikAdim, secilen, onSec }: Props) {
 
       {/* Adım adım çözüm */}
       {acikAdim > 0 && (
-        <section className="mt-6 rounded-2xl border border-cizgi bg-yuzey2/40 p-4 sm:p-5">
-          <h3 className="mb-3 flex items-center gap-2 text-[0.7em] font-bold uppercase tracking-wider text-vurgu">
+        <section className="mt-6 rounded-2xl border border-cizgi2 bg-yuzey2/40 p-4 sm:p-5">
+          <h3 className="mb-3 flex items-center gap-2 text-[0.7em] font-bold uppercase tracking-wider text-ikincil">
             <Lightbulb className="size-[1.2em]" /> Çözüm · {Math.min(acikAdim, toplam)}/{toplam}
           </h3>
           <ol className="grid gap-3">

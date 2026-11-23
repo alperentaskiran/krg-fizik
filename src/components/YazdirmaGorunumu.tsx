@@ -15,10 +15,14 @@ export function YazdirmaGorunumu({ sorular, cevapAnahtari }: Props) {
   return (
     <div className="yalniz-yazdir">
       <header className="yaprak-baslik">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-          <strong style={{ fontSize: '14pt' }}>
-            {ozelAyarlar.markaAdi} · Yaprak Test
-          </strong>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="antet-kutu" style={{ display: 'flex', alignItems: 'center', gap: '3mm' }}>
+            <img src="./logo-full.png" alt="" style={{ width: '17mm', height: '17mm', borderRadius: '2mm' }} />
+            <div style={{ lineHeight: 1.25 }}>
+              <strong style={{ fontSize: '13pt', letterSpacing: '0.04em' }}>KRG FİZİK — AKILLI TAHTA &amp; SORU BANKASI</strong>
+              <div style={{ fontSize: '9.5pt' }}>Yaprak Test</div>
+            </div>
+          </div>
           <span style={{ fontSize: '9.5pt' }}>
             {siniflar.map((s) => `${s}.`).join(' / ')} Sınıf · {sorular.length} soru
           </span>

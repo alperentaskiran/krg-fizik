@@ -1,0 +1,566 @@
+{
+ "sinif9/tema1.ts": {
+  "sinif": 9,
+  "tema": "Fizik Bilimi ve Kariyer Keşfi",
+  "kodlar": null,
+  "toplam": 30,
+  "cs": 24,
+  "au": 6,
+  "mevcut": [
+   "9-1",
+   "9-2",
+   "9-3",
+   "9-4",
+   "9-5"
+  ],
+  "mevcut_cs": 4,
+  "mevcut_au": 1,
+  "mevcut_harfler": "ACEB",
+  "id_onek": "9-T1-",
+  "yeni_harfler": "ABCAEDEBBABBADABDCEB",
+  "yeni_cs": 20,
+  "yeni_au": 5,
+  "zorluk_hedef": {
+   "Temel": 9,
+   "Orta": 12,
+   "İleri": 9
+  },
+  "svg_min": 15
+ },
+ "sinif9/tema2.ts": {
+  "sinif": 9,
+  "tema": "Kuvvet ve Hareket",
+  "kodlar": null,
+  "toplam": 42,
+  "cs": 34,
+  "au": 8,
+  "mevcut": [
+   "9-6",
+   "9-7",
+   "9-8",
+   "9-9",
+   "9-10"
+  ],
+  "mevcut_cs": 4,
+  "mevcut_au": 1,
+  "mevcut_harfler": "DCAD",
+  "id_onek": "9-T2-",
+  "yeni_harfler": "EDCDAEBABBDCEECDACDECBDABEBEAE",
+  "yeni_cs": 30,
+  "yeni_au": 7,
+  "zorluk_hedef": {
+   "Temel": 13,
+   "Orta": 16,
+   "İleri": 13
+  },
+  "svg_min": 21
+ },
+ "sinif9/tema3.ts": {
+  "sinif": 9,
+  "tema": "Akışkanlar",
+  "kodlar": null,
+  "toplam": 40,
+  "cs": 32,
+  "au": 8,
+  "mevcut": [
+   "9-11",
+   "9-12",
+   "9-13",
+   "9-14",
+   "9-15"
+  ],
+  "mevcut_cs": 4,
+  "mevcut_au": 1,
+  "mevcut_harfler": "BEDA",
+  "id_onek": "9-T3-",
+  "yeni_harfler": "CDAACCEDDAEBAACDCBCBDCCADBAA",
+  "yeni_cs": 28,
+  "yeni_au": 7,
+  "zorluk_hedef": {
+   "Temel": 12,
+   "Orta": 16,
+   "İleri": 12
+  },
+  "svg_min": 20
+ },
+ "sinif9/tema4.ts": {
+  "sinif": 9,
+  "tema": "Enerji",
+  "kodlar": null,
+  "toplam": 38,
+  "cs": 30,
+  "au": 8,
+  "mevcut": [
+   "9-16",
+   "9-17",
+   "9-18",
+   "9-19",
+   "9-20"
+  ],
+  "mevcut_cs": 3,
+  "mevcut_au": 2,
+  "mevcut_harfler": "ECB",
+  "id_onek": "9-T4-",
+  "yeni_harfler": "BEAEECACCDCDBADDCEDEEDBCBEE",
+  "yeni_cs": 27,
+  "yeni_au": 6,
+  "zorluk_hedef": {
+   "Temel": 11,
+   "Orta": 16,
+   "İleri": 11
+  },
+  "svg_min": 19
+ },
+ "sinif10/tema1.ts": {
+  "sinif": 10,
+  "tema": "Kuvvet ve Hareket",
+  "kodlar": null,
+  "toplam": 40,
+  "cs": 32,
+  "au": 8,
+  "mevcut": [
+   "10-1",
+   "10-2",
+   "10-3",
+   "10-4",
+   "10-5"
+  ],
+  "mevcut_cs": 4,
+  "mevcut_au": 1,
+  "mevcut_harfler": "DACE",
+  "id_onek": "10-T1-",
+  "yeni_harfler": "EDABEEAAEACBDDECABBABBDECCEE",
+  "yeni_cs": 28,
+  "yeni_au": 7,
+  "zorluk_hedef": {
+   "Temel": 12,
+   "Orta": 16,
+   "İleri": 12
+  },
+  "svg_min": 20
+ },
+ "sinif10/tema2.ts": {
+  "sinif": 10,
+  "tema": "Enerji",
+  "kodlar": null,
+  "toplam": 36,
+  "cs": 29,
+  "au": 7,
+  "mevcut": [
+   "10-6",
+   "10-7",
+   "10-8",
+   "10-9",
+   "10-10"
+  ],
+  "mevcut_cs": 4,
+  "mevcut_au": 1,
+  "mevcut_harfler": "BADB",
+  "id_onek": "10-T2-",
+  "yeni_harfler": "DADDCCDCACAEDDBCCBEACEBED",
+  "yeni_cs": 25,
+  "yeni_au": 6,
+  "zorluk_hedef": {
+   "Temel": 11,
+   "Orta": 14,
+   "İleri": 11
+  },
+  "svg_min": 18
+ },
+ "sinif10/tema3.ts": {
+  "sinif": 10,
+  "tema": "Elektrik",
+  "kodlar": null,
+  "toplam": 38,
+  "cs": 30,
+  "au": 8,
+  "mevcut": [
+   "10-11",
+   "10-12",
+   "10-13",
+   "10-14",
+   "10-15"
+  ],
+  "mevcut_cs": 4,
+  "mevcut_au": 1,
+  "mevcut_harfler": "ECBE",
+  "id_onek": "10-T3-",
+  "yeni_harfler": "CABDDBCABAECDEEBCAADDAEBCA",
+  "yeni_cs": 26,
+  "yeni_au": 7,
+  "zorluk_hedef": {
+   "Temel": 11,
+   "Orta": 16,
+   "İleri": 11
+  },
+  "svg_min": 19
+ },
+ "sinif10/tema4.ts": {
+  "sinif": 10,
+  "tema": "Dalgalar",
+  "kodlar": null,
+  "toplam": 36,
+  "cs": 29,
+  "au": 7,
+  "mevcut": [
+   "10-16",
+   "10-17",
+   "10-18",
+   "10-19",
+   "10-20"
+  ],
+  "mevcut_cs": 3,
+  "mevcut_au": 2,
+  "mevcut_harfler": "ADC",
+  "id_onek": "10-T4-",
+  "yeni_harfler": "BEABCECBAAEBEDEDCCBBCDDADB",
+  "yeni_cs": 26,
+  "yeni_au": 5,
+  "zorluk_hedef": {
+   "Temel": 11,
+   "Orta": 14,
+   "İleri": 11
+  },
+  "svg_min": 18
+ },
+ "sinif11/tema1a.ts": {
+  "sinif": 11,
+  "tema": "Kuvvet ve Hareket",
+  "kodlar": [
+   "FİZ.11.1.1",
+   "FİZ.11.1.2",
+   "FİZ.11.1.3"
+  ],
+  "toplam": 28,
+  "cs": 23,
+  "au": 5,
+  "mevcut": [
+   "11-1",
+   "11-2",
+   "11-3",
+   "11-4"
+  ],
+  "mevcut_cs": 4,
+  "mevcut_au": 0,
+  "mevcut_harfler": "BEAC",
+  "id_onek": "11-T1A-",
+  "yeni_harfler": "CBDBEDEECDADACDEDDC",
+  "yeni_cs": 19,
+  "yeni_au": 5,
+  "zorluk_hedef": {
+   "Temel": 8,
+   "Orta": 12,
+   "İleri": 8
+  },
+  "svg_min": 14
+ },
+ "sinif11/tema1b.ts": {
+  "sinif": 11,
+  "tema": "Kuvvet ve Hareket",
+  "kodlar": [
+   "FİZ.11.1.4",
+   "FİZ.11.1.5",
+   "FİZ.11.1.6"
+  ],
+  "toplam": 28,
+  "cs": 22,
+  "au": 6,
+  "mevcut": [
+   "11-5",
+   "11-6",
+   "11-7"
+  ],
+  "mevcut_cs": 1,
+  "mevcut_au": 2,
+  "mevcut_harfler": "D",
+  "id_onek": "11-T1B-",
+  "yeni_harfler": "BCDCDCBDAEBADCDBBEDBE",
+  "yeni_cs": 21,
+  "yeni_au": 4,
+  "zorluk_hedef": {
+   "Temel": 8,
+   "Orta": 12,
+   "İleri": 8
+  },
+  "svg_min": 14
+ },
+ "sinif11/tema2a.ts": {
+  "sinif": 11,
+  "tema": "Elektrik ve Manyetizma",
+  "kodlar": [
+   "FİZ.11.2.1"
+  ],
+  "toplam": 23,
+  "cs": 19,
+  "au": 4,
+  "mevcut": [
+   "11-8",
+   "11-9"
+  ],
+  "mevcut_cs": 2,
+  "mevcut_au": 0,
+  "mevcut_harfler": "EB",
+  "id_onek": "11-T2A-",
+  "yeni_harfler": "DEBECDBEDACCBBCEC",
+  "yeni_cs": 17,
+  "yeni_au": 4,
+  "zorluk_hedef": {
+   "Temel": 7,
+   "Orta": 9,
+   "İleri": 7
+  },
+  "svg_min": 12
+ },
+ "sinif11/tema2b.ts": {
+  "sinif": 11,
+  "tema": "Elektrik ve Manyetizma",
+  "kodlar": [
+   "FİZ.11.2.2",
+   "FİZ.11.2.3",
+   "FİZ.11.2.4"
+  ],
+  "toplam": 23,
+  "cs": 18,
+  "au": 5,
+  "mevcut": [
+   "11-10",
+   "11-11",
+   "11-12",
+   "11-13"
+  ],
+  "mevcut_cs": 3,
+  "mevcut_au": 1,
+  "mevcut_harfler": "ACD",
+  "id_onek": "11-T2B-",
+  "yeni_harfler": "CAEEAADEBBDCDAE",
+  "yeni_cs": 15,
+  "yeni_au": 4,
+  "zorluk_hedef": {
+   "Temel": 7,
+   "Orta": 9,
+   "İleri": 7
+  },
+  "svg_min": 12
+ },
+ "sinif11/tema3a.ts": {
+  "sinif": 11,
+  "tema": "Optik",
+  "kodlar": [
+   "FİZ.11.3.1",
+   "FİZ.11.3.2",
+   "FİZ.11.3.3",
+   "FİZ.11.3.4"
+  ],
+  "toplam": 24,
+  "cs": 19,
+  "au": 5,
+  "mevcut": [
+   "11-14",
+   "11-15",
+   "11-16"
+  ],
+  "mevcut_cs": 3,
+  "mevcut_au": 0,
+  "mevcut_harfler": "ACE",
+  "id_onek": "11-T3A-",
+  "yeni_harfler": "BABEECAEAABCCAEB",
+  "yeni_cs": 16,
+  "yeni_au": 5,
+  "zorluk_hedef": {
+   "Temel": 7,
+   "Orta": 10,
+   "İleri": 7
+  },
+  "svg_min": 12
+ },
+ "sinif11/tema3b.ts": {
+  "sinif": 11,
+  "tema": "Optik",
+  "kodlar": [
+   "FİZ.11.3.5",
+   "FİZ.11.3.6",
+   "FİZ.11.3.7",
+   "FİZ.11.3.8"
+  ],
+  "toplam": 24,
+  "cs": 19,
+  "au": 5,
+  "mevcut": [
+   "11-17",
+   "11-18",
+   "11-19",
+   "11-20"
+  ],
+  "mevcut_cs": 2,
+  "mevcut_au": 2,
+  "mevcut_harfler": "BD",
+  "id_onek": "11-T3B-",
+  "yeni_harfler": "BDAABACDCAEBEAACA",
+  "yeni_cs": 17,
+  "yeni_au": 3,
+  "zorluk_hedef": {
+   "Temel": 7,
+   "Orta": 10,
+   "İleri": 7
+  },
+  "svg_min": 12
+ },
+ "sinif12/tema1.ts": {
+  "sinif": 12,
+  "tema": "Çembersel Hareket",
+  "kodlar": null,
+  "toplam": 30,
+  "cs": 24,
+  "au": 6,
+  "mevcut": [
+   "12-1",
+   "12-2",
+   "12-3",
+   "12-4"
+  ],
+  "mevcut_cs": 3,
+  "mevcut_au": 1,
+  "mevcut_harfler": "CDB",
+  "id_onek": "12-T1-",
+  "yeni_harfler": "BCDEBBEEDCEEDAEBACADA",
+  "yeni_cs": 21,
+  "yeni_au": 5,
+  "zorluk_hedef": {
+   "Temel": 9,
+   "Orta": 12,
+   "İleri": 9
+  },
+  "svg_min": 15
+ },
+ "sinif12/tema2.ts": {
+  "sinif": 12,
+  "tema": "Basit Harmonik Hareket",
+  "kodlar": null,
+  "toplam": 22,
+  "cs": 18,
+  "au": 4,
+  "mevcut": [
+   "12-5",
+   "12-6",
+   "12-7"
+  ],
+  "mevcut_cs": 3,
+  "mevcut_au": 0,
+  "mevcut_harfler": "AED",
+  "id_onek": "12-T2-",
+  "yeni_harfler": "EBEBECCDABBEBCB",
+  "yeni_cs": 15,
+  "yeni_au": 4,
+  "zorluk_hedef": {
+   "Temel": 7,
+   "Orta": 8,
+   "İleri": 7
+  },
+  "svg_min": 11
+ },
+ "sinif12/tema3.ts": {
+  "sinif": 12,
+  "tema": "Dalga Mekaniği",
+  "kodlar": null,
+  "toplam": 28,
+  "cs": 22,
+  "au": 6,
+  "mevcut": [
+   "12-8",
+   "12-9",
+   "12-10",
+   "12-11"
+  ],
+  "mevcut_cs": 3,
+  "mevcut_au": 1,
+  "mevcut_harfler": "CEA",
+  "id_onek": "12-T3-",
+  "yeni_harfler": "BEDCADDCAADEADCCAAB",
+  "yeni_cs": 19,
+  "yeni_au": 5,
+  "zorluk_hedef": {
+   "Temel": 8,
+   "Orta": 12,
+   "İleri": 8
+  },
+  "svg_min": 14
+ },
+ "sinif12/tema4.ts": {
+  "sinif": 12,
+  "tema": "Atom Fiziğine Giriş ve Radyoaktivite",
+  "kodlar": null,
+  "toplam": 24,
+  "cs": 19,
+  "au": 5,
+  "mevcut": [
+   "12-12",
+   "12-13",
+   "12-14"
+  ],
+  "mevcut_cs": 2,
+  "mevcut_au": 1,
+  "mevcut_harfler": "BE",
+  "id_onek": "12-T4-",
+  "yeni_harfler": "CCBADEADDECBDABCD",
+  "yeni_cs": 17,
+  "yeni_au": 4,
+  "zorluk_hedef": {
+   "Temel": 7,
+   "Orta": 10,
+   "İleri": 7
+  },
+  "svg_min": 12
+ },
+ "sinif12/tema5.ts": {
+  "sinif": 12,
+  "tema": "Modern Fizik",
+  "kodlar": null,
+  "toplam": 28,
+  "cs": 23,
+  "au": 5,
+  "mevcut": [
+   "12-15",
+   "12-16",
+   "12-17",
+   "12-18"
+  ],
+  "mevcut_cs": 3,
+  "mevcut_au": 1,
+  "mevcut_harfler": "BDC",
+  "id_onek": "12-T5-",
+  "yeni_harfler": "ECBEEABBDDCACAADACEC",
+  "yeni_cs": 20,
+  "yeni_au": 4,
+  "zorluk_hedef": {
+   "Temel": 8,
+   "Orta": 12,
+   "İleri": 8
+  },
+  "svg_min": 14
+ },
+ "sinif12/tema6.ts": {
+  "sinif": 12,
+  "tema": "Modern Fiziğin Teknolojideki Uygulamaları",
+  "kodlar": null,
+  "toplam": 18,
+  "cs": 14,
+  "au": 4,
+  "mevcut": [
+   "12-19",
+   "12-20"
+  ],
+  "mevcut_cs": 1,
+  "mevcut_au": 1,
+  "mevcut_harfler": "A",
+  "id_onek": "12-T6-",
+  "yeni_harfler": "BDAEEDCEBABCD",
+  "yeni_cs": 13,
+  "yeni_au": 3,
+  "zorluk_hedef": {
+   "Temel": 5,
+   "Orta": 8,
+   "İleri": 5
+  },
+  "svg_min": 9
+ }
+}

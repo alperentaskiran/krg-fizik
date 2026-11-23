@@ -1,47 +1,65 @@
 @import "tailwindcss";
 
-/* ───────────── Tahta temaları ───────────── */
+/* ───────────── Tahta temaları (KRG Fizik logosu paleti) ───────────── */
+/* KRG Gece Tahtası — varsayılan */
 :root,
 [data-tema="koyu"] {
-  --zemin: #0b1220;
-  --yuzey: #111a2e;
-  --yuzey2: #18233d;
-  --cizgi: #2a3a5e;
-  --metin: #e8eefc;
-  --soluk: #9aa8c7;
-  --vurgu: #fbbf24;
-  --ikincil: #38bdf8;
-  --sivi: rgba(56, 189, 248, 0.16);
+  --zemin: #071426;
+  --zemin2: #0b1d3a;
+  --yuzey: #0f2544;
+  --yuzey2: #132d52;
+  --cizgi: rgba(226, 180, 85, 0.25);
+  --cizgi2: rgba(56, 217, 232, 0.2);
+  --metin: #f8fafc;
+  --soluk: #a9b8d0;
+  --vurgu: #e2b455;
+  --vurgu-hover: #f3cc74;
+  --vurgu-yazi: #071426;
+  --ikincil: #38d9e8;
+  --ikincil2: #5ce1e6;
+  --sivi: rgba(56, 217, 232, 0.16);
   --dogru: #34d399;
   --yanlis: #f87171;
   --kalp: #fb7185;
   color-scheme: dark;
 }
+/* Klasik Yeşil Tahta */
 [data-tema="yesil"] {
-  --zemin: #163428;
-  --yuzey: #1c3f31;
-  --yuzey2: #234d3c;
-  --cizgi: #3f6e5a;
-  --metin: #f5f2e7;
-  --soluk: #bcd0c2;
-  --vurgu: #fde68a;
-  --ikincil: #a5f3fc;
-  --sivi: rgba(165, 243, 252, 0.14);
+  --zemin: #123326;
+  --zemin2: #17402f;
+  --yuzey: #1a4535;
+  --yuzey2: #21523f;
+  --cizgi: rgba(233, 196, 106, 0.3);
+  --cizgi2: rgba(127, 231, 238, 0.24);
+  --metin: #f8f6ec;
+  --soluk: #c0d3c6;
+  --vurgu: #ecc76b;
+  --vurgu-hover: #f6d98c;
+  --vurgu-yazi: #10281e;
+  --ikincil: #7fe7ee;
+  --ikincil2: #a5f0f3;
+  --sivi: rgba(127, 231, 238, 0.14);
   --dogru: #86efac;
   --yanlis: #fca5a5;
   --kalp: #fda4af;
   color-scheme: dark;
 }
+/* Beyaz Kağıt */
 [data-tema="beyaz"] {
-  --zemin: #f4f2ec;
+  --zemin: #f5f3ee;
+  --zemin2: #ece7db;
   --yuzey: #ffffff;
-  --yuzey2: #f0ede5;
-  --cizgi: #dcd6c8;
-  --metin: #1b2232;
-  --soluk: #586174;
-  --vurgu: #c2410c;
-  --ikincil: #0369a1;
-  --sivi: rgba(3, 105, 161, 0.1);
+  --yuzey2: #f3efe5;
+  --cizgi: rgba(154, 107, 0, 0.28);
+  --cizgi2: rgba(14, 124, 134, 0.25);
+  --metin: #101a2c;
+  --soluk: #4d5a70;
+  --vurgu: #9a6b00;
+  --vurgu-hover: #7d5600;
+  --vurgu-yazi: #ffffff;
+  --ikincil: #0e7c86;
+  --ikincil2: #0b6670;
+  --sivi: rgba(14, 124, 134, 0.1);
   --dogru: #047857;
   --yanlis: #b91c1c;
   --kalp: #e11d48;
@@ -56,6 +74,10 @@
   --color-metin: var(--metin);
   --color-soluk: var(--soluk);
   --color-vurgu: var(--vurgu);
+  --color-vurgu-hover: var(--vurgu-hover);
+  --color-vurgu-yazi: var(--vurgu-yazi);
+  --color-cizgi2: var(--cizgi2);
+  --color-zemin2: var(--zemin2);
   --color-ikincil: var(--ikincil);
   --color-dogru: var(--dogru);
   --color-yanlis: var(--yanlis);
@@ -74,7 +96,7 @@ body,
 }
 body {
   margin: 0;
-  background: var(--zemin);
+  background: radial-gradient(ellipse 120% 90% at 50% 0%, var(--zemin2) 0%, var(--zemin) 70%) fixed, var(--zemin);
   color: var(--metin);
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", sans-serif;
   overscroll-behavior: none;
@@ -175,6 +197,8 @@ button {
   .ekran { display: none !important; }
   .yalniz-yazdir { display: block; }
   .yaprak-baslik { border-bottom: 1.5px solid #000; padding-bottom: 2mm; margin-bottom: 4mm; }
+  .antet-kutu { border: 1px solid #000; border-radius: 2mm; padding: 1.5mm 3mm 1.5mm 1.5mm; }
+  img { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
   .yaprak {
     columns: 2;
     column-gap: 8mm;
