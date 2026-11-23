@@ -1,0 +1,193 @@
+@import "tailwindcss";
+
+/* ───────────── Tahta temaları ───────────── */
+:root,
+[data-tema="koyu"] {
+  --zemin: #0b1220;
+  --yuzey: #111a2e;
+  --yuzey2: #18233d;
+  --cizgi: #2a3a5e;
+  --metin: #e8eefc;
+  --soluk: #9aa8c7;
+  --vurgu: #fbbf24;
+  --ikincil: #38bdf8;
+  --sivi: rgba(56, 189, 248, 0.16);
+  --dogru: #34d399;
+  --yanlis: #f87171;
+  --kalp: #fb7185;
+  color-scheme: dark;
+}
+[data-tema="yesil"] {
+  --zemin: #163428;
+  --yuzey: #1c3f31;
+  --yuzey2: #234d3c;
+  --cizgi: #3f6e5a;
+  --metin: #f5f2e7;
+  --soluk: #bcd0c2;
+  --vurgu: #fde68a;
+  --ikincil: #a5f3fc;
+  --sivi: rgba(165, 243, 252, 0.14);
+  --dogru: #86efac;
+  --yanlis: #fca5a5;
+  --kalp: #fda4af;
+  color-scheme: dark;
+}
+[data-tema="beyaz"] {
+  --zemin: #f4f2ec;
+  --yuzey: #ffffff;
+  --yuzey2: #f0ede5;
+  --cizgi: #dcd6c8;
+  --metin: #1b2232;
+  --soluk: #586174;
+  --vurgu: #c2410c;
+  --ikincil: #0369a1;
+  --sivi: rgba(3, 105, 161, 0.1);
+  --dogru: #047857;
+  --yanlis: #b91c1c;
+  --kalp: #e11d48;
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-zemin: var(--zemin);
+  --color-yuzey: var(--yuzey);
+  --color-yuzey2: var(--yuzey2);
+  --color-cizgi: var(--cizgi);
+  --color-metin: var(--metin);
+  --color-soluk: var(--soluk);
+  --color-vurgu: var(--vurgu);
+  --color-ikincil: var(--ikincil);
+  --color-dogru: var(--dogru);
+  --color-yanlis: var(--yanlis);
+  --color-kalp: var(--kalp);
+  --font-serif: "Georgia", "Cambria", "Times New Roman", serif;
+}
+
+html {
+  --olcek: 1;
+  -webkit-text-size-adjust: 100%;
+}
+html,
+body,
+#root {
+  height: 100%;
+}
+body {
+  margin: 0;
+  background: var(--zemin);
+  color: var(--metin);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", sans-serif;
+  overscroll-behavior: none;
+}
+button {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+:focus-visible {
+  outline: 3px solid var(--vurgu);
+  outline-offset: 2px;
+}
+
+/* Uzaktan okunabilir, ölçeklenebilir soru puntosu (A- / A+) */
+.soru-punto {
+  font-size: calc(clamp(1.05rem, 0.72rem + 1.05vw, 2.5rem) * var(--olcek));
+  line-height: 1.55;
+}
+.soru-punto .katex {
+  font-size: 1.08em;
+}
+.katex-display {
+  margin: 0.4em 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+/* ───────────── SVG fizik çizimleri ───────────── */
+.sekil svg {
+  width: 100%;
+  height: auto;
+  max-height: min(52vh, 34rem);
+  stroke: currentColor;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.sekil .t {
+  fill: currentColor;
+  stroke: none;
+  font: 500 15px system-ui, sans-serif;
+}
+.sekil .c-v { stroke: var(--vurgu); }
+.sekil .c-i { stroke: var(--ikincil); }
+.sekil .f-v { fill: var(--vurgu); }
+.sekil .f-i { fill: var(--ikincil); }
+.sekil .f-t { fill: currentColor; }
+.sekil .f-s { fill: var(--sivi); }
+.sekil .f-k { fill: color-mix(in srgb, var(--ikincil) 22%, transparent); }
+.sekil .f-kv { fill: color-mix(in srgb, var(--vurgu) 28%, transparent); }
+.sekil .k { stroke-dasharray: 6 6; }
+
+/* Çizim katmanı */
+.cizim-katmani {
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Karşılama kartı animasyonları */
+@keyframes yuksel {
+  0% { transform: translateY(0) scale(0.8); opacity: 0; }
+  15% { opacity: 0.9; }
+  100% { transform: translateY(-110vh) scale(1.15); opacity: 0; }
+}
+.ucan-kalp {
+  position: absolute;
+  bottom: -2rem;
+  animation: yuksel linear infinite;
+  pointer-events: none;
+}
+@keyframes belir {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+.belir { animation: belir 0.35s ease-out both; }
+@keyframes adimGel {
+  from { opacity: 0; transform: translateX(-10px); }
+  to { opacity: 1; transform: none; }
+}
+.adim-gel { animation: adimGel 0.3s ease-out both; }
+@media (prefers-reduced-motion: reduce) {
+  .ucan-kalp, .belir, .adim-gel { animation: none !important; }
+  .ucan-kalp { display: none; }
+}
+
+.yalniz-yazdir { display: none; }
+
+/* ───────────── Yaprak test yazdırma görünümü ───────────── */
+@media print {
+  @page { size: A4; margin: 11mm 10mm; }
+  :root, [data-tema] {
+    --zemin: #fff; --yuzey: #fff; --metin: #000; --soluk: #333;
+    --vurgu: #111; --ikincil: #333; --sivi: #ececec; --cizgi: #999;
+    color-scheme: light;
+  }
+  html, body, #root { height: auto; background: #fff !important; color: #000; }
+  .ekran { display: none !important; }
+  .yalniz-yazdir { display: block; }
+  .yaprak-baslik { border-bottom: 1.5px solid #000; padding-bottom: 2mm; margin-bottom: 4mm; }
+  .yaprak {
+    columns: 2;
+    column-gap: 8mm;
+    column-rule: 0.6px solid #888;
+    font-size: 10.5pt;
+    line-height: 1.4;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  .yaprak > li { break-inside: avoid; margin: 0 0 5mm; }
+  .yaprak .sekil svg { max-height: 46mm; }
+  .yaprak .sekil .t { font-size: 14px; }
+  .anahtar { break-inside: avoid; margin-top: 4mm; border-top: 1.5px solid #000; padding-top: 2mm; font-size: 10pt; }
+  .bos-satir { border-bottom: 0.6px dotted #666; height: 7mm; }
+}

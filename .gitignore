@@ -1,0 +1,13 @@
+node_modules/
+dist/
+dev-dist/
+*.local
+.DS_Store
+Thumbs.db
+
+# Büyük MEB ders kitabı PDF'leri ve çıkarılan özetler GitHub'a yüklenmez
+raw_books/
+
+# Yerel araç ayarları
+.claude/
+*.tsbuildinfo
