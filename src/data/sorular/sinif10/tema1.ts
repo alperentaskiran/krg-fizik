@@ -165,7 +165,7 @@ Buna göre K ve L arabalarının hızlarının büyüklükleri oranı $\dfrac{v_
       yazi(52, 216, '0', { boy: 13, hiza: 'end' }),
       yazi(165, 218, '3', { boy: 13, hiza: 'middle' }),
       yazi(270, 218, '6', { boy: 13, hiza: 'middle' }),
-      yazi(108, 84, 'K', { boy: 14 }),
+      yazi(146, 44, 'K', { boy: 14 }),
       yazi(240, 158, 'L', { boy: 14 }),
     ),
     secenekler: { A: '$\\dfrac{1}{3}$', B: '$\\dfrac{1}{2}$', C: '$1$', D: '$\\dfrac{3}{2}$', E: '$2$' },
