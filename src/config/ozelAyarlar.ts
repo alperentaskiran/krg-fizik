@@ -35,7 +35,7 @@ Sizinle ilk tanıştığım zamanki hâllerimi hatırlıyorum da; o tembel, usla
 
 Ben de öğretmenlik hayatınızda bir desteği dokunsun diye bu uygulamayı sizin için yazdım; ayrıca öğrencilerinize de başarılar dileğimi buradan iletin lütfen.
 
-Sizi çok seviyorum hocam, iyi ki hayatımdasınız. Dilerim ki sizinle nice birçok Öğretmenler Günü kutlamaya devam ederiz.
+Sizi çok seviyorum hocam, iyi ki hayatımdasınız. Dilerim ki sizinle nice Öğretmenler Günü kutlamaya devam ederiz.
 `,
 
   kapanis: 'Öğretmenler Gününüz Kutlu Olsun.',
