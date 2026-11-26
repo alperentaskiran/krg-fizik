@@ -7,7 +7,7 @@
 
 export const ozelAyarlar = {
   /** Hocanın ekranda görünecek adı */
-  hocaAdi: 'Tuba Hocam',
+  hocaAdi: 'Tuba ve Alper Hocam',
 
   /** Marka / uygulama adı (sekme başlığı, üst bar, yaprak test başlığı) */
   markaAdi: 'KRG Fizik',
@@ -28,14 +28,14 @@ export const ozelAyarlar = {
   // │    • kapanis / imza: mektubun son satırları                    │
   // │    • Metnin içinde ` (ters tırnak) karakteri kullanma.         │
   // └────────────────────────────────────────────────────────────────┘
-  hitap: 'Çok Değerli Tuba Hocam,',
+  hitap: 'Çok Değerli Tuba ve Alper Hocam,',
 
   kutlamaMektubu: `
 Sizinle ilk tanıştığım zamanki hâllerimi hatırlıyorum da; o tembel, uslanmaz çocukta bir umut ışığı gördünüz ve o umut ışığını hiçbir zaman kaybetmediniz. Öyle şeyler yaşandı ve öyle eşiklerden geçtim ki siz olmasaydınız belki de birçoğunu aşamayacaktım. O koşulsuz şartsız verdiğiniz desteğiniz benim için çok değerli.
 
 Ben de öğretmenlik hayatınızda bir desteği dokunsun diye bu uygulamayı sizin için yazdım; ayrıca öğrencilerinize de başarılar dileğimi buradan iletin lütfen.
 
-Sizi çok seviyorum hocam, iyi ki hayatımdasınız. Dilerim ki sizinle nice Öğretmenler Günü kutlamaya devam ederiz.
+Sizi çok seviyorum hocalarım, iyi ki hayatımdasınız. Dilerim ki sizinle nice Öğretmenler Günü kutlamaya devam ederiz.
 `,
 
   kapanis: 'Öğretmenler Gününüz Kutlu Olsun.',

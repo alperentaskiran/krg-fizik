@@ -1,7 +1,7 @@
 # KRG Fizik
 
 Türkiye Yüzyılı Maarif Modeli uyumlu, sunucusuz (statik) ve çevrimdışı çalışabilen fizik soru tahtası.
-Akıllı tahta, Smart TV / projeksiyon, telefon ve bilgisayarda çalışır. 24 Kasım Öğretmenler Günü için Tuba Hocam'a hazırlandı.
+Akıllı tahta, Smart TV / projeksiyon, telefon ve bilgisayarda çalışır. 24 Kasım Öğretmenler Günü için Tuba ve Alper Hocam'a hazırlandı.
 
 ## Hızlı başlangıç
 
